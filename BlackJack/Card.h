@@ -1,27 +1,26 @@
 ﻿#pragma once
-#include <vector>
 #include <ostream>
+#include <vector>
 #include <string>
-#include <algorithm>
-#include <random>
-#include <chrono>
-#include<iostream>
-#include <array>
 
-#include "Suits.h"
 
-enum class Ranks { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack,  Queen, King  };
+enum class Suit { Spades, Hearts, Diamonds, Clubs };
+char suitToChar(Suit s);
 
-struct Cards{Ranks rank; Suits suit;};
+enum class Rank : int {
+    Ace = 1, Two, Three, Four, Five, Six, Seven,
+    Eight, Nine, Ten, Jack, Queen, King
+};
+struct Card { Rank rank; Suit suit; };
 
-using Hands = std::vector<Cards>;
-using Deck = std::vector<Cards>;
 
-std::ostream& operator<<(std::ostream&, const Cards&);
+using Deck = std::vector<Card>;
+using Hand = std::vector<Card>;
 
-Deck* makeShuffledDeck();
 
-int handValue(const Hands* hand);
-
-void showHand(const std::string& label, const Hands* hand, bool hideFirst = false);
-
+std::ostream& operator<<(std::ostream&, const Card&);
+Deck* makeShuffledDeck();            // caller must delete
+int   handValue(const Hand*);        // Blackjack total (Ace soft 11)
+void  showHand(const std::string& label,
+               const Hand* h,
+               bool hideFirst = false);

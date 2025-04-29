@@ -1,29 +1,37 @@
 ﻿#pragma once
-#include<string>
 #include "Card.h"
+#include "Wallet.h"
+#include <string>
+#include <vector>
 
-class Participant
-{
+#include "Rules.h"
+
+struct State { Hand hand; int stake = 0; };
+class Strategy;
+
+class Participant {
 public:
-    virtual ~Participant() = default;
+    Participant(const std::string& name, Strategy* brain);
+    ~Participant();
 
-    virtual std::string name() const = 0;
+    bool placeBet();
+    void clearHand();
+    void giveCards(const Card& c){ state_.hand.push_back(c); }
 
-    virtual bool wantsCards(const Participant& dealer) = 0;
+    bool wantsHit   (const State& dealer,const TableRules&);
+    bool wantsSplit (const TableRules&);
+    bool wantsDbl   (const TableRules&);
+    bool canSplit   (const TableRules&) const;
 
-    void takeCards(Deck& deck)
-    {
-        hand.push_back(deck.back());
-        deck.pop_back();
-    }
+    const std::string& name() const { return label_; }
+    Wallet&            wallet()     { return purse_; }
+    State&             state()      { return state_; }
 
-    const Hands* handPtr() const{return &hand;}
+    std::vector<State*> splitHands;          // extra hands after split
 
-    Hands* handPtr() { return &hand; }
-
-
-protected:
-
-    Hands hand;
-    
+private:
+    std::string label_;
+    Wallet      purse_;
+    State       state_;
+    Strategy*   brain_;
 };

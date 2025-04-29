@@ -109,6 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,17 +157,17 @@
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Dealer.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Participant.cpp" />
-    <ClCompile Include="Players.cpp" />
-    <ClCompile Include="Suits.cpp" />
+    <ClCompile Include="Strategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
-    <ClInclude Include="Dealer.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Participant.h" />
-    <ClInclude Include="Players.h" />
-    <ClInclude Include="Suits.h" />
+    <ClInclude Include="Rules.h" />
+    <ClInclude Include="Strategy.h" />
+    <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
